@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagination Example</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="data-container">
+        <h1>Pagination in HTML CSS & JavaScript</h1>
+        <div class="card-container" id="articles-container"></div>
+    </div>
+
+    <div class="pagination" id="pagination">
+        <a href="#" id="prev">Previous</a>
+        <a href="#" class="page-link" data-page="1">1</a>
+        <a href="#" class="page-link" data-page="2">2</a>
+        <a href="#" class="page-link" data-page="3">3</a>
+        <a href="#" id="next">Next</a>
+        <p id="page-numbers"> </p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            try {
+                const response = await fetch('/articles');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const articles = await response.json();
+                const container = document.getElementById('articles-container');
+
+                articles.forEach(article => {
+                    const articleDiv = document.createElement('div');
+                    articleDiv.className = 'card';
+
+                    const image = document.createElement('img');
+                    image.src = article.image;
+                    image.alt = article.titre;
+                    articleDiv.appendChild(image);
+
+                    const title = document.createElement('h3');
+                    title.textContent = article.titre;
+                    articleDiv.appendChild(title);
+
+                    const content = document.createElement('p');
+                    content.textContent = article.contenu;
+                    articleDiv.appendChild(content);
+
+                    container.appendChild(articleDiv);
+                });
+            } catch (error) {
+                console.error('Error fetching articles:', error);
+            }
+        });
+
+
+    </script>
+    <script src="script.js">  </script>
+</body>
+
+</html>

@@ -45,7 +45,6 @@ async function main() {
         categories.push(categorie);
     }
 
-    // Créez 100 articles appartenant à (de 1 à 4 catégories aléatoires) et écrits par l’un des 10 auteurs
     for (let i = 0; i < 100; i++) {
         const isPublished = Math.random() < 0.5;
         const article = await prisma.article.create({
